@@ -28,7 +28,7 @@ dist-dev: v8deps v8src ## make distribution package with v8 lib headers and sour
 	make clean
 	make v8deps
 	make v8src
-	tar -cv deps | gzip -best > v8src.tar.gz
+	tar -cv deps | gzip --best > v8src.tar.gz
 	
 clean: ## clean
 	rm -fr deps
