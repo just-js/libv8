@@ -33,4 +33,10 @@ dist-dev: v8deps v8src ## make distribution package with v8 lib headers and sour
 clean: ## clean
 	rm -fr deps
 
+release: ## make release assets
+	make clean
+	make v8lib
+	make v8deps
+	make dist
+
 .DEFAULT_GOAL := help
