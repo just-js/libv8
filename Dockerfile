@@ -7,7 +7,7 @@ ENV PATH="/build/depot_tools:${PATH}"
 RUN gclient
 RUN fetch v8
 WORKDIR /build/v8
-RUN git checkout branch-heads/8.4
+RUN git checkout branch-heads/8.5
 RUN gclient sync
 RUN ./build/install-build-deps.sh --no-syms --no-chromeos-fonts --no-arm --no-nacl --no-backwards-compatible
 RUN ./tools/dev/v8gen.py \
@@ -46,4 +46,4 @@ RUN ./tools/dev/v8gen.py \
 	v8_imminent_deprecation_warnings=false \
 	v8_untrusted_code_mitigations=false \
 	v8_enable_pointer_compression=true
-RUN ninja v8_monolith -C out.gn/x64.release/ -j 2
+RUN ninja v8_monolith -C out.gn/x64.release/ -j 8
