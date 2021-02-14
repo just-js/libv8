@@ -7,7 +7,7 @@ ENV PATH="/build/depot_tools:${PATH}"
 RUN gclient
 RUN fetch v8
 WORKDIR /build/v8
-RUN git checkout branch-heads/8.6
+RUN git checkout branch-heads/8.8
 RUN gclient sync
 RUN ./build/install-build-deps.sh --no-syms --no-chromeos-fonts --no-arm --no-nacl --no-backwards-compatible
 RUN ./tools/dev/v8gen.py \
