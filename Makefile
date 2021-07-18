@@ -5,19 +5,20 @@ help:
 
 v8lib: ## build v8 library
 	docker build -t v8-build .
-	docker build -t v8-build-alpine -f Dockerfile.alpine .
+#	docker build -t v8-build-alpine -f Dockerfile.alpine .
 
 v8deps: ## copy libs and includes from docker image
+	rm -fr debian
 	mkdir -p deps/v8
 	mkdir -p debian
 	docker run -dt --rm --name v8-build v8-build /bin/sh
 	docker cp v8-build:/build/v8/out.gn/x64.release/obj/libv8_monolith.a debian/libv8_monolith.a
 	docker cp v8-build:/build/v8/include deps/v8/
 	docker kill v8-build
-	mkdir -p alpine
-	docker run -dt --rm --name v8-build-alpine v8-build-alpine /bin/sh
-	docker cp v8-build-alpine:/build/v8/out.gn/x64.release/obj/libv8_monolith.a alpine/libv8_monolith.a
-	docker kill v8-build-alpine
+#	mkdir -p alpine
+#	docker run -dt --rm --name v8-build-alpine v8-build-alpine /bin/sh
+#	docker cp v8-build-alpine:/build/v8/out.gn/x64.release/obj/libv8_monolith.a alpine/libv8_monolith.a
+#	docker kill v8-build-alpine
 
 v8src: v8deps ## copy v8 source for ide integration
 	docker run -dt --rm --name v8-build v8-build /bin/sh
@@ -28,8 +29,8 @@ v8src: v8deps ## copy v8 source for ide integration
 dist: deps ## make distribution package with v8 lib and headers
 	cp -f debian/libv8_monolith.a deps/v8
 	tar -cv deps | gzip --best > v8.tar.gz
-	cp -f alpine/libv8_monolith.a deps/v8
-	tar -cv deps | gzip --best > v8-alpine.tar.gz
+#	cp -f alpine/libv8_monolith.a deps/v8
+#	tar -cv deps | gzip --best > v8-alpine.tar.gz
 
 dist-dev: v8deps v8src ## make distribution package with v8 lib headers and source
 	make clean
@@ -39,8 +40,8 @@ dist-dev: v8deps v8src ## make distribution package with v8 lib headers and sour
 	
 clean: ## clean
 	rm -fr deps
-	rm -f v8.tar.gz
-	rm -f v8-alpine.tar.gz
+#	rm -f v8.tar.gz
+#	rm -f v8-alpine.tar.gz
 
 release: ## make release assets
 	make clean
