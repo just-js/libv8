@@ -44,6 +44,6 @@ RUN ./tools/dev/v8gen.py \
 	v8_enable_gdbjit=false \
 	v8_imminent_deprecation_warnings=false \
 	v8_untrusted_code_mitigations=false \
-	v8_use_snapshot=true \
+	v8_use_snapshot=false \
 	v8_enable_pointer_compression=true
 RUN ninja v8_monolith -C out.gn/x64.release/ -j $(getconf _NPROCESSORS_ONLN)
