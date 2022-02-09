@@ -9,6 +9,7 @@ v8lib: ## build v8 library
 
 v8deps: ## copy libs and includes from docker image
 	rm -fr debian
+	rm -fr deps/v8
 	mkdir -p deps/v8
 	mkdir -p debian
 	docker run -dt --rm --name v8-build v8-build /bin/sh

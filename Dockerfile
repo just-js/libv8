@@ -7,7 +7,7 @@ ENV PATH="/build/depot_tools:${PATH}"
 RUN gclient
 RUN fetch v8
 WORKDIR /build/v8
-RUN git checkout branch-heads/9.1
+RUN git checkout branch-heads/9.6
 RUN gclient sync
 RUN ./build/install-build-deps.sh --no-syms --no-chromeos-fonts --no-arm --no-nacl --no-backwards-compatible
 RUN ./tools/dev/v8gen.py \
@@ -24,8 +24,10 @@ RUN ./tools/dev/v8gen.py \
 	is_asan=false \
 	is_clang=false \
 	use_custom_libcxx=false \
+	use_custom_libcxx_for_host=false \
 	use_sysroot=false \
 	use_gold=false \
+	is_debug=false \
 	treat_warnings_as_errors=false \
 	v8_enable_i18n_support=false \
 	symbol_level=0 \
