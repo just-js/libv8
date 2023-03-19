@@ -27,7 +27,7 @@ v8src: v8deps ## copy v8 source for ide integration
 	docker cp v8-build:/build/v8/out.gn/x64.release/gen deps/v8/
 	docker kill v8-build
 
-dist: deps ## make distribution package with v8 lib and headers
+dist: v8deps ## make distribution package with v8 lib and headers
 	cp -f debian/libv8_monolith.a deps/v8
 	tar -cv deps | gzip --best > v8.tar.gz
 #	cp -f alpine/libv8_monolith.a deps/v8
